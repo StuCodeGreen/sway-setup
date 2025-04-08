@@ -13,7 +13,7 @@ set $lock swaylock \
   --show-failed-attempts \
   --indicator-idle-visible
 
-output * bg ~/.config/sway/wallpaper/wallpaper.jpeg fill
+output * bg ~/.config/sway/wallpaper/screenlock.webp stretch
 default_border pixel 1
 default_floating_border pixel 1
 gaps inner 0
@@ -24,7 +24,7 @@ input * xkb_layout gb
 
 smart_borders on
 
-    client.focused          #ffc0cb #ffc0cb #ffffff
+    client.focused          #ffffff #ffffff #ffffff
     client.unfocused        #2e3440 #1f222d #888888
     client.focused_inactive #2e3440 #1f222d #888888 
     client.placeholder      #2e3440 #1f222d #888888
