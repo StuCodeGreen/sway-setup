@@ -1,6 +1,17 @@
 set $mod Mod1
 set $term alacritty
-set $menu i3-dmenu-desktop
+set $lock swaylock \
+  --config ~/.config/swaylock/config \
+  --screenshot \
+  --ignore-empty-password \
+  --daemonize \
+  --indicator-caps-lock \
+  --indicator \
+  --clock \
+  --timestr "󰥔 %I:%M %p" \
+  --datestr "󰃭 %d-%m-%Y" \
+  --show-failed-attempts \
+  --indicator-idle-visible
 
 output * bg ~/.config/sway/wallpaper/wallpaper.jpeg fill
 default_border pixel 1
@@ -11,7 +22,6 @@ bindsym $mod+shift+g exec swaymsg gaps outer all set 0 && swaymsg gaps inner all
 bindsym $mod+g exec swaymsg gaps outer all set 0 && swaymsg gaps inner all set 0
 input * xkb_layout gb
 
-
 smart_borders on
 
     client.focused          #ffc0cb #ffc0cb #ffffff
@@ -21,17 +31,26 @@ smart_borders on
     client.urgent           #D08770 #D08770 #ffffff
     client.background       #242424
 
-### Idle configuration
+### Start copyq server
+exec copyq --start-server
 
+### Idle configuration
  exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          #timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-          before-sleep 'swaylock -f -c 000000'
+  timeout 300 "$lock" \
+  timeout 600 'swaymsg "output * power off"' \
+  resume 'swaymsg "output * power on"' \
+  before-sleep "$lock"
+
+
+### Lock screen when lid is closed
+
+    bindswitch --reload --locked lid:on exec $lock
+
 
 ### Key bindings
     
     # Open CopyQ
-    bindsym $mod+c exec CopyQ
+    bindsym $mod+c exec copyq toggle
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -47,14 +66,14 @@ smart_borders on
     bindsym $mod+Shift+d exec wofi --show run --insensitive
 
     # Screen lock
-    bindsym $mod+l exec swaylock --image ~/.config/sway/wallpaper/screenlock.webp --scaling stretch
+    bindsym $mod+l exec $lock
 
     # Reload the configuration file
     bindsym $mod+Shift+r reload
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-# Moving around:
+### Moving around:
 
     # Move your focus around
     bindsym $mod+Left focus left
@@ -68,7 +87,7 @@ smart_borders on
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
 
-# Workspaces:
+### Workspaces:
 
     # Switch to workspace
     bindsym $mod+1 workspace number 1
@@ -93,7 +112,7 @@ smart_borders on
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
     
-# Layout:
+### Layout:
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -103,7 +122,7 @@ smart_borders on
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
-# Scratchpad:
+### Scratchpad:
 
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
@@ -113,7 +132,7 @@ smart_borders on
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 
-# Resizing containers:
+### Resizing containers:
 
 mode "resize" {
     bindsym Left resize shrink width 10px
@@ -130,7 +149,7 @@ bar swaybar_command waybar
 
 include /etc/sway/config.d/*
 
-# Utilities:
+### Utilities:
 
     # Special keys to adjust volume via PulseAudio
     bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
