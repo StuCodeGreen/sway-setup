@@ -139,11 +139,13 @@ mode "resize" {
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
-
     # Return to default mode
-    bindsym Escape mode "default"
+
+    bindsym Return exec "pkill swaynag; swaymsg mode default"
+    bindsym Escape exec "pkill swaynag; swaymsg mode default"
 }
-bindsym $mod+r mode "resize"
+
+bindsym $mod+r exec swaynag -m "Resize mode: use arrows. ESC or Enter to exit." -t warning -d; mode "resize"
 
 bar swaybar_command waybar
 
