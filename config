@@ -1,6 +1,6 @@
 set $mod Mod1
 set $term alacritty
-set $menu i3-dmenu-desktop
+#set $menu i3-dmenu-desktop
 
 output * bg ~/.config/sway/wallpaper/wallpaper.jpeg fill
 default_border pixel 1
@@ -43,8 +43,10 @@ smart_borders on
     bindsym $mod+Shift+q exit
 
     # Start your launcher
-    bindsym $mod+d exec $menu
-    bindsym $mod+Shift+d exec dmenu_run
+    bindsym $mod+d exec wofi --show drun --insensitive
+    bindsym $mod+Shift+d exec wofi --show run --insensitive
+
+    #Lock screen
     bindsym $mod+l exec hyprlock
 
     # Reload the configuration file
