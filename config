@@ -13,7 +13,7 @@ set $lock swaylock \
   --show-failed-attempts \
   --indicator-idle-visible
 
-output * bg ~/.config/sway/wallpaper/screenlock.webp stretch
+output * bg ~/.config/sway/wallpaper/wallpaper.jpeg fill
 default_border pixel 1
 default_floating_border pixel 1
 gaps inner 0
