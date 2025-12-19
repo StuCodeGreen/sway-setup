@@ -1,17 +1,6 @@
 set $mod Mod1
 set $term alacritty
-set $lock swaylock \
-  --config ~/.config/swaylock/config \
-  --screenshot \
-  --ignore-empty-password \
-  --daemonize \
-  --indicator-caps-lock \
-  --indicator \
-  --clock \
-  --timestr "󰥔 %I:%M %p" \
-  --datestr "󰃭 %d-%m-%Y" \
-  --show-failed-attempts \
-  --indicator-idle-visible
+set $lock ~/.config/swaylock/lock.sh
 
 output * bg ~/.config/sway/wallpaper/wallpaper.jpeg fill
 default_border pixel 1
