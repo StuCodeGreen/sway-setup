@@ -35,12 +35,7 @@ smart_borders on
 exec copyq --start-server
 
 ### Idle configuration
-exec swayidle -w \
-  timeout 300 "$lock" \
-  timeout 600 'swaymsg "output * power off"' \
-  resume 'swaymsg "output * power on"' \
-  before-sleep "$lock" \
-  lock "$lock"
+exec /bin/bash ~/.config/sway/scripts/start-swayidle.sh
 
 
 ### Lock screen when lid is closed
