@@ -2,7 +2,7 @@ set $mod Mod1
 set $term alacritty
 set $lock ~/.config/swaylock/lock.sh
 
-output * bg ~/.config/sway/wallpaper/wallpaper.jpeg fill
+output * bg ~/.config/sway/wallpaper/screenlock.webp fill
 default_border pixel 1
 default_floating_border pixel 1
 gaps inner 0
